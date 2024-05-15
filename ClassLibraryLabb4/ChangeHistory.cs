@@ -15,5 +15,8 @@ namespace ClassLibraryLabb4
         public DateTime WhenChanged { get; set; }
         public DateTime? OldAppointmentTime { get; set; }
         public DateTime? NewAppointmentTime { get; set; }
+        public int AppointmentID { get; set; }
+        
+
     }
 }

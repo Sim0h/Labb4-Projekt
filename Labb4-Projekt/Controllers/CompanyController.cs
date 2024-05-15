@@ -128,6 +128,7 @@ namespace Labb4_Projekt.Controllers
                     return BadRequest();
                 }
                 var newAppointment = await _company.AddAppointment(appointment);
+                await _company.LogAppointmentChange("Added Appointment by Company", null, null, newAppointment);
                 return CreatedAtAction(nameof(AddAppointment), new { id = newAppointment.AppointmentID }, newAppointment);
 
             }
@@ -160,6 +161,7 @@ namespace Labb4_Projekt.Controllers
                 appointmentToUpdate.AppointmentLength = appointment.AppointmentLength;
                 appointmentToUpdate.AppointmentStart = appointment.AppointmentStart;
                 appointmentToUpdate.AppointmentEnd = appointment.AppointmentEnd;
+                appointmentToUpdate.AppointmentID = appointment.AppointmentID;
 
                 var updatedAppointment = await _company.UpdateAppointment(appointmentToUpdate);
 
@@ -169,9 +171,9 @@ namespace Labb4_Projekt.Controllers
                 }
 
                 // Log the appointment change
-                await _company.LogAppointmentChange("Update", oldAppointmentTime, appointment.AppointmentStart);
+                await _company.LogAppointmentChange("Updated Appointment by Company", oldAppointmentTime, appointment.AppointmentStart, appointment);
 
-                return Ok(updatedAppointment);
+                return updatedAppointment;
             }
             catch
             {
@@ -189,6 +191,7 @@ namespace Labb4_Projekt.Controllers
                 {
                     return NotFound();
                 }
+                await _company.LogAppointmentChange("Removed Appointment by Company", null, null, result);
                 return Ok(result);
             }
             catch (Exception)

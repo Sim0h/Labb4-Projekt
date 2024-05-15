@@ -64,7 +64,7 @@ namespace Labb4_Projekt.Services
         } //funkar
 
 
-        public async Task<Customer> GetUserWithAppointments1(int id)
+        public async Task<Customer> GetUserWithAppointments(int id)
         {
             var customer = await _appDbContext.Customers.Include(c => c.Appointments)
                                                         .FirstOrDefaultAsync(c => c.CustomerID == id);
@@ -78,14 +78,16 @@ namespace Labb4_Projekt.Services
             return result.Entity;
         } //funkar
 
-        public async Task LogAppointmentChange(string changeType, DateTime? oldAppointmentTime, DateTime? newAppointmentTime)
+        public async Task LogAppointmentChange(string changeType, DateTime? oldAppointmentTime, DateTime? newAppointmentTime, Appointment appointment)
         {
             var changeHistory = new ChangeHistory
             {
                 ChangeType = changeType,
                 WhenChanged = DateTime.Now,
                 OldAppointmentTime = oldAppointmentTime,
-                NewAppointmentTime = newAppointmentTime
+                NewAppointmentTime = newAppointmentTime,
+                AppointmentID = appointment.AppointmentID
+                
             };
 
             _appDbContext.ChangeHistorys.Add(changeHistory);
@@ -95,6 +97,3 @@ namespace Labb4_Projekt.Services
 }
 
 
-/*
-10. Kundinformation bör skyddas och endast tillgänglig för auktoriserade användare.
- */

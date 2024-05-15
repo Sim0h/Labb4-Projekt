@@ -9,8 +9,8 @@ namespace Labb4_Projekt.Services
         Task<Appointment> CancleAppointment(Appointment appointment);
         Task<Customer> UpdateCustomer(Customer customer);
         
-        Task<Customer> GetUserWithAppointments1(int id);
+        Task<Customer> GetUserWithAppointments(int id);
         Task<Appointment> AddAppointment(Appointment appointment);
-        Task LogAppointmentChange(string changeType, DateTime? oldAppointmentTime, DateTime? newAppointmentTime);
+        Task LogAppointmentChange(string changeType, DateTime? oldAppointmentTime, DateTime? newAppointmentTime, Appointment appointment);
     }
 }

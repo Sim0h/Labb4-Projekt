@@ -5,7 +5,7 @@ namespace Labb4_Projekt.Services
 {
     public interface ICompany<T>
     {
-        Task<IEnumerable<Customer>> GetAllCustomers();
+        Task<IEnumerable<CustomerDTO>> GetAllCustomers();
         Task<Customer> GetSingleCustomer(int id);
         Task<List<Appointment>> AppointmentsThisWeekAll(DateTime currentDate);
         Task<List<Appointment>> AppointmentsThisWeekCustomer(DateTime currentDate, int id);
@@ -20,7 +20,7 @@ namespace Labb4_Projekt.Services
         Task<Appointment> DeleteAppointment(int id);
 
         Task<IEnumerable<ChangeHistory>> GetChangeHistory();
-        Task LogAppointmentChange(string changeType, DateTime? oldAppointmentTime, DateTime? newAppointmentTime);
+        Task LogAppointmentChange(string changeType, DateTime? oldAppointmentTime, DateTime? newAppointmentTime, Appointment appointment);
 
 
     }

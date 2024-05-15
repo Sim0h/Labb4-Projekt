@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using ClassLibraryLabb4;
 using Microsoft.EntityFrameworkCore;
+using Labb4_Projekt.Mappers;
 
 namespace Labb4_Projekt.Services
 {
@@ -31,9 +32,15 @@ namespace Labb4_Projekt.Services
             return null;
         }
 
-        public async Task<IEnumerable<Customer>> GetAllCustomers()
+        public async Task<IEnumerable<CustomerDTO>> GetAllCustomers()
         {
-            return await _appDbContext.Customers.ToListAsync();
+            // Retrieve Customer entities from the database
+            var customers = await _appDbContext.Customers.ToListAsync();
+
+            // Map Customer entities to CustomerDTO objects
+            var customerDTOs = customers.Select(customer => CustomerMapper.MapToDTO(customer));
+
+            return customerDTOs;
         } 
 
         public async Task<Customer> GetSingleCustomer(int id)
@@ -137,14 +144,15 @@ namespace Labb4_Projekt.Services
         }
 
 
-        public async Task LogAppointmentChange(string changeType, DateTime? oldAppointmentTime, DateTime? newAppointmentTime)
+        public async Task LogAppointmentChange(string changeType, DateTime? oldAppointmentTime, DateTime? newAppointmentTime, Appointment appointment)
         {
             var changeHistory = new ChangeHistory
             {
                 ChangeType = changeType,
                 WhenChanged = DateTime.Now,
                 OldAppointmentTime = oldAppointmentTime,
-                NewAppointmentTime = newAppointmentTime
+                NewAppointmentTime = newAppointmentTime,
+                AppointmentID = appointment.AppointmentID
             };
 
             _appDbContext.ChangeHistorys.Add(changeHistory);

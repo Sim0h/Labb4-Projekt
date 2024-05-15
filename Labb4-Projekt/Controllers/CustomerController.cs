@@ -31,16 +31,19 @@ namespace Labb4_Projekt.Controllers
                 {
                     return NotFound($"Customer with ID {id} could not be found..");
                 }
+                
                 customer.CustomerID = id;
                 var updatedCustomer = await _customer.UpdateCustomer(customer);
+
                 if (updatedCustomer != null)
                 {
-                    return Ok(updatedCustomer);
+                    return updatedCustomer;
                 }
                 else
                 {
                     return StatusCode(StatusCodes.Status500InternalServerError, "Failed to update customer.");
                 }
+
             }
             catch
             {
@@ -48,33 +51,41 @@ namespace Labb4_Projekt.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error to Post Data To Database.......");
             }
-        } 
 
-        [HttpDelete("Cancel Appointment/{customerID:int}/{id:int}")] //funkar
+
+
+
+        }
+
+        [HttpDelete("CancelAppointment/{customerID:int}/{id:int}")] //funkar
         public async Task<ActionResult<Appointment>> CancelAppointment(int id, int customerID)
         {
             try
             {
-
-                var appointment = await _customer.GetUserWithAppointments1(customerID);
+                var appointment = await _customer.GetUserWithAppointments(customerID);
                 if (appointment == null)
                 {
                     return NotFound();
                 }
-                await _customer.LogAppointmentChange("Cancel", null, null);
 
-                var result = await _customer.CancleAppointment(appointment.Appointments.FirstOrDefault(a => a.AppointmentID == id));
-                if (result == null)
+                var canceledAppointment = appointment.Appointments.FirstOrDefault(a => a.AppointmentID == id);
+                if (canceledAppointment == null)
                 {
                     return NotFound("This Appointment ID is not booked in your name.");
                 }
+
+                var result = await _customer.CancleAppointment(canceledAppointment);
+
+                // Log the appointment change
+                await _customer.LogAppointmentChange("Canceled Appointment", null, null, canceledAppointment);
+
                 return Ok(result);
             }
             catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error to remove Data from Database.......");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error removing data from the database.");
             }
-        } 
+        }
 
         [HttpPost("Book new appointment")]//funkar
         public async Task<ActionResult<Appointment>> BookNewAppointment(Appointment appointment)
@@ -87,9 +98,12 @@ namespace Labb4_Projekt.Controllers
                 {
                     return BadRequest();
                 }
+                
                 var newAppointment = await _customer.AddAppointment(appointment);
+                await _customer.LogAppointmentChange("Customer Booked Appointment", null, null, newAppointment);
                 return CreatedAtAction(nameof(BookNewAppointment), new { id = newAppointment.AppointmentID }, newAppointment);
 
+                
             }
             catch
             {
