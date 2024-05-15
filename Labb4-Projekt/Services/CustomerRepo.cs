@@ -24,14 +24,14 @@ namespace Labb4_Projekt.Services
                 return result;
             }
             return null;
-        }
+        } //funkar
 
       
 
         public async Task<Customer> GetSingleCustomer(int id)
         {
             return await _appDbContext.Customers.FirstOrDefaultAsync(c => c.CustomerID == id);
-        }
+        } //funkar
 
         public async Task<Appointment> CancleAppointment(Appointment appointment)
         {
@@ -43,7 +43,7 @@ namespace Labb4_Projekt.Services
                 return result;
             }
             return null;
-        }
+        } //funkar
 
         public async Task<Customer> UpdateCustomer(Customer customer)
         {
@@ -61,7 +61,7 @@ namespace Labb4_Projekt.Services
                 return existingCustomer;
             }
             return null;
-        }
+        } //funkar
 
 
         public async Task<Customer> GetUserWithAppointments1(int id)
@@ -69,14 +69,14 @@ namespace Labb4_Projekt.Services
             var customer = await _appDbContext.Customers.Include(c => c.Appointments)
                                                         .FirstOrDefaultAsync(c => c.CustomerID == id);
             return customer;
-        }
+        } //funkar
 
         public async Task<Appointment> AddAppointment(Appointment appointment)
         {
             var result = await _appDbContext.Appointments.AddAsync(appointment);
             await _appDbContext.SaveChangesAsync();
             return result.Entity;
-        }
+        } //funkar
 
         public async Task LogAppointmentChange(string changeType, DateTime? oldAppointmentTime, DateTime? newAppointmentTime)
         {
@@ -90,7 +90,7 @@ namespace Labb4_Projekt.Services
 
             _appDbContext.ChangeHistorys.Add(changeHistory);
             await _appDbContext.SaveChangesAsync();
-        }
+        } //funkar
     }
 }
 

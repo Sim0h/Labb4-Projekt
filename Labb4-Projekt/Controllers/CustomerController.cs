@@ -17,7 +17,7 @@ namespace Labb4_Projekt.Controllers
             _customer = customer;
         }
 
-        [HttpPut("Update Customer/{id:int}")]
+        [HttpPut("Update Customer/{id:int}")] //funkar
         public async Task<ActionResult<Customer>> UpdateCustomer(int id, Customer customer)
         {
             try
@@ -48,9 +48,9 @@ namespace Labb4_Projekt.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error to Post Data To Database.......");
             }
-        }
+        } 
 
-        [HttpDelete("Cancel Appointment/{customerID:int}/{id:int}")]
+        [HttpDelete("Cancel Appointment/{customerID:int}/{id:int}")] //funkar
         public async Task<ActionResult<Appointment>> CancelAppointment(int id, int customerID)
         {
             try
@@ -74,9 +74,9 @@ namespace Labb4_Projekt.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error to remove Data from Database.......");
             }
-        }
+        } 
 
-        [HttpPost("Book new appointment")]
+        [HttpPost("Book new appointment")]//funkar
         public async Task<ActionResult<Appointment>> BookNewAppointment(Appointment appointment)
         {
 
@@ -98,7 +98,7 @@ namespace Labb4_Projekt.Controllers
                     "Error to Post Data To Database.......");
             }
 
-        }
+        } 
 
     }
 

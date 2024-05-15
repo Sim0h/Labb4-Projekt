@@ -118,7 +118,6 @@ namespace Labb4_Projekt.Controllers
             }
         }
 
-
         [HttpPost("Add Appointment")] //funkar behöver company + customer ID
         public async Task<ActionResult<Appointment>> AddAppointment(Appointment appointment)
         {
@@ -233,7 +232,7 @@ namespace Labb4_Projekt.Controllers
             }
         }
 
-        [HttpGet("Change History")]
+        [HttpGet("Change History")] //funkar
         public async Task<ActionResult<IEnumerable<ChangeHistory>>> GetChangeHistory()
         {
             try
