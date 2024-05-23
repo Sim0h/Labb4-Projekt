@@ -31,7 +31,7 @@ namespace Labb4_Projekt.Controllers
                 {
                     return NotFound($"Customer with ID {id} could not be found..");
                 }
-                
+
                 customer.CustomerID = id;
                 var updatedCustomer = await _customer.UpdateCustomer(customer);
 
@@ -98,12 +98,12 @@ namespace Labb4_Projekt.Controllers
                 {
                     return BadRequest();
                 }
-                
+
                 var newAppointment = await _customer.AddAppointment(appointment);
                 await _customer.LogAppointmentChange("Customer Booked Appointment", null, null, newAppointment);
                 return CreatedAtAction(nameof(BookNewAppointment), new { id = newAppointment.AppointmentID }, newAppointment);
 
-                
+
             }
             catch
             {
@@ -112,8 +112,9 @@ namespace Labb4_Projekt.Controllers
                     "Error to Post Data To Database.......");
             }
 
-        } 
+        }
 
+    
     }
 
 }

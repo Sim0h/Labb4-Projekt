@@ -56,6 +56,7 @@ namespace Labb4_Projekt.Services
                 existingCustomer.CustomerEmail = customer.CustomerEmail;
                 existingCustomer.CustomerPhone = customer.CustomerPhone;
                 existingCustomer.CustomerAddress = customer.CustomerAddress;
+                existingCustomer.CustomerPassword = customer.CustomerPassword;
 
                 await _appDbContext.SaveChangesAsync();
                 return existingCustomer;
@@ -93,6 +94,12 @@ namespace Labb4_Projekt.Services
             _appDbContext.ChangeHistorys.Add(changeHistory);
             await _appDbContext.SaveChangesAsync();
         } //funkar
+
+
+        public async Task<List<Appointment>> GetByCustomerId(int customerId)
+        {
+            return await _appDbContext.Appointments.Where(a => a.CustomerID == customerId).ToListAsync();
+        }
     }
 }
 

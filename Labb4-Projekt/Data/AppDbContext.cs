@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ClassLibraryLabb4;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Labb4_Projekt.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<IdentityUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) 
         {
@@ -28,6 +30,7 @@ namespace Labb4_Projekt.Data
                 CustomerAddress = "SolGatan 12B",
                 CustomerEmail = "Sam@testing.se",
                 CustomerPhone = "0712365987",
+                CustomerPassword = "password1!"
                 
 
             });
@@ -38,6 +41,7 @@ namespace Labb4_Projekt.Data
                 CustomerAddress = "Varbergsgatan 31",
                 CustomerEmail = "Simon@ståhl.se",
                 CustomerPhone = "0744556698",
+                CustomerPassword = "password2!"
 
 
             });
@@ -48,6 +52,7 @@ namespace Labb4_Projekt.Data
                 CustomerAddress = "Storgatan 6",
                 CustomerEmail = "Henrik@johansson.se",
                 CustomerPhone = "0723647895",
+                CustomerPassword = "password3!"
 
             });
 

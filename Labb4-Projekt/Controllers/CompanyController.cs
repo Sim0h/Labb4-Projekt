@@ -33,7 +33,7 @@ namespace Labb4_Projekt.Controllers
             }
         }
 
-        [HttpGet("Get Customer by ID{CustomerID:int}")] //funkar
+        [HttpGet("Get Customer by ID{id:int}")] //funkar
         public async Task<ActionResult<Customer>> GetCustomerByID(int id)
         {
             try

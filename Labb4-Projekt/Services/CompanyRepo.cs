@@ -25,6 +25,7 @@ namespace Labb4_Projekt.Services
                 result.CustomerEmail = entity.CustomerEmail;
                 result.CustomerPhone = entity.CustomerPhone;
                 result.CustomerAddress = entity.CustomerAddress;
+                result.CustomerPassword = entity.CustomerPassword;
 
                 await _appDbContext.SaveChangesAsync();
                 return result;

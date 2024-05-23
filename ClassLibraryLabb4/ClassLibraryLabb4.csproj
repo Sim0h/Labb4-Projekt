@@ -10,4 +10,8 @@
     <None Remove="Customer.cs~RFe4a48ff.TMP" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.4" />
+  </ItemGroup>
+
 </Project>
