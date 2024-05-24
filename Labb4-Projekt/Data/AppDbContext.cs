@@ -30,7 +30,7 @@ namespace Labb4_Projekt.Data
                 CustomerAddress = "SolGatan 12B",
                 CustomerEmail = "Sam@testing.se",
                 CustomerPhone = "0712365987",
-                CustomerPassword = "password1!"
+                CustomerPassword = "Password1!"
                 
 
             });
@@ -41,7 +41,7 @@ namespace Labb4_Projekt.Data
                 CustomerAddress = "Varbergsgatan 31",
                 CustomerEmail = "Simon@ståhl.se",
                 CustomerPhone = "0744556698",
-                CustomerPassword = "password2!"
+                CustomerPassword = "Password2!"
 
 
             });
@@ -52,7 +52,7 @@ namespace Labb4_Projekt.Data
                 CustomerAddress = "Storgatan 6",
                 CustomerEmail = "Henrik@johansson.se",
                 CustomerPhone = "0723647895",
-                CustomerPassword = "password3!"
+                CustomerPassword = "Password3!"
 
             });
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Labb4_Projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class Initialcreation : Migration
+    public partial class initialcreation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -250,9 +250,9 @@ namespace Labb4_Projekt.Migrations
                 columns: new[] { "CustomerID", "CustomerAddress", "CustomerEmail", "CustomerName", "CustomerPassword", "CustomerPhone" },
                 values: new object[,]
                 {
-                    { 1, "SolGatan 12B", "Sam@testing.se", "Sam Testing", "password1!", "0712365987" },
-                    { 2, "Varbergsgatan 31", "Simon@ståhl.se", "Simon Ståhl", "password2!", "0744556698" },
-                    { 3, "Storgatan 6", "Henrik@johansson.se", "Henrik Johansson", "password3!", "0723647895" }
+                    { 1, "SolGatan 12B", "Sam@testing.se", "Sam Testing", "Password1!", "0712365987" },
+                    { 2, "Varbergsgatan 31", "Simon@ståhl.se", "Simon Ståhl", "Password2!", "0744556698" },
+                    { 3, "Storgatan 6", "Henrik@johansson.se", "Henrik Johansson", "Password3!", "0723647895" }
                 });
 
             migrationBuilder.InsertData(

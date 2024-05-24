@@ -194,7 +194,7 @@ namespace Labb4_Projekt.Migrations
                             CustomerAddress = "SolGatan 12B",
                             CustomerEmail = "Sam@testing.se",
                             CustomerName = "Sam Testing",
-                            CustomerPassword = "password1!",
+                            CustomerPassword = "Password1!",
                             CustomerPhone = "0712365987"
                         },
                         new
@@ -203,7 +203,7 @@ namespace Labb4_Projekt.Migrations
                             CustomerAddress = "Varbergsgatan 31",
                             CustomerEmail = "Simon@ståhl.se",
                             CustomerName = "Simon Ståhl",
-                            CustomerPassword = "password2!",
+                            CustomerPassword = "Password2!",
                             CustomerPhone = "0744556698"
                         },
                         new
@@ -212,7 +212,7 @@ namespace Labb4_Projekt.Migrations
                             CustomerAddress = "Storgatan 6",
                             CustomerEmail = "Henrik@johansson.se",
                             CustomerName = "Henrik Johansson",
-                            CustomerPassword = "password3!",
+                            CustomerPassword = "Password3!",
                             CustomerPhone = "0723647895"
                         });
                 });
