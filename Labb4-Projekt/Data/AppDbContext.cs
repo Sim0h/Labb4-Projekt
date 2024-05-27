@@ -29,8 +29,8 @@ namespace Labb4_Projekt.Data
                 CustomerName = "Sam Testing",
                 CustomerAddress = "SolGatan 12B",
                 CustomerEmail = "Sam@testing.se",
-                CustomerPhone = "0712365987",
-                CustomerPassword = "Password1!"
+                CustomerPhone = "0712365987"
+                
                 
 
             });
@@ -40,8 +40,8 @@ namespace Labb4_Projekt.Data
                 CustomerName = "Simon Ståhl",
                 CustomerAddress = "Varbergsgatan 31",
                 CustomerEmail = "Simon@ståhl.se",
-                CustomerPhone = "0744556698",
-                CustomerPassword = "Password2!"
+                CustomerPhone = "0744556698"
+               
 
 
             });
@@ -51,8 +51,8 @@ namespace Labb4_Projekt.Data
                 CustomerName = "Henrik Johansson",
                 CustomerAddress = "Storgatan 6",
                 CustomerEmail = "Henrik@johansson.se",
-                CustomerPhone = "0723647895",
-                CustomerPassword = "Password3!"
+                CustomerPhone = "0723647895"
+               
 
             });
 
@@ -95,11 +95,15 @@ namespace Labb4_Projekt.Data
 
             //Test Data Company
 
-            modelBuilder.Entity<Company>().HasData(new Company
+            modelBuilder.Entity<Company>(entity =>
             {
-                CompanyID = 1,
-                CompanyName = "SUT23 Kliniken",
+                entity.HasKey(e => e.CompanyID);
+                entity.Property(e => e.CompanyName).IsRequired();
 
+                entity.HasOne(e => e.User)
+                      .WithMany()
+                      .HasForeignKey(e => e.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<ChangeHistory>().HasData(new ChangeHistory

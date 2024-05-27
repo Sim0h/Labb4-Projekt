@@ -22,9 +22,11 @@ namespace ClassLibraryLabb4
         public string CustomerAddress { get; set; }
         [Required]
         public string CustomerPhone { get; set; }
-        [Required]
+        
         public string CustomerPassword { get; set; }
 
         public ICollection<Appointment> Appointments { get; set; }
+        public IdentityUser User { get; set; }
+        public string IdentityUserId { get; set; }
     }
 }

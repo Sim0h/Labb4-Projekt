@@ -1,6 +1,7 @@
 ﻿using ClassLibraryLabb4;
 using Labb4_Projekt.Data;
 using Labb4_Projekt.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
@@ -9,6 +10,7 @@ namespace Labb4_Projekt.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Policy = "AdminPolicy")]
     public class CompanyController : ControllerBase
     {
         private ICompany<Company> _company;

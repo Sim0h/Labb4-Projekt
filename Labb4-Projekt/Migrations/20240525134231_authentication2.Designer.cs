@@ -4,6 +4,7 @@ using Labb4_Projekt.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labb4_Projekt.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240525134231_authentication2")]
+    partial class authentication2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,6 +178,7 @@ namespace Labb4_Projekt.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("CustomerPassword")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CustomerPhone")
@@ -197,6 +201,7 @@ namespace Labb4_Projekt.Migrations
                             CustomerAddress = "SolGatan 12B",
                             CustomerEmail = "Sam@testing.se",
                             CustomerName = "Sam Testing",
+                            CustomerPassword = "Password1!",
                             CustomerPhone = "0712365987"
                         },
                         new
@@ -205,6 +210,7 @@ namespace Labb4_Projekt.Migrations
                             CustomerAddress = "Varbergsgatan 31",
                             CustomerEmail = "Simon@ståhl.se",
                             CustomerName = "Simon Ståhl",
+                            CustomerPassword = "Password2!",
                             CustomerPhone = "0744556698"
                         },
                         new
@@ -213,6 +219,7 @@ namespace Labb4_Projekt.Migrations
                             CustomerAddress = "Storgatan 6",
                             CustomerEmail = "Henrik@johansson.se",
                             CustomerName = "Henrik Johansson",
+                            CustomerPassword = "Password3!",
                             CustomerPhone = "0723647895"
                         });
                 });

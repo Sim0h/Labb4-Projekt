@@ -4,6 +4,7 @@ using Labb4_Projekt.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labb4_Projekt.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240524085025_authentication")]
+    partial class authentication
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,7 +143,6 @@ namespace Labb4_Projekt.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompanyID"));
 
                     b.Property<string>("CompanyName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
@@ -151,6 +153,13 @@ namespace Labb4_Projekt.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Companies");
+
+                    b.HasData(
+                        new
+                        {
+                            CompanyID = 1,
+                            CompanyName = "SUT23 Kliniken"
+                        });
                 });
 
             modelBuilder.Entity("ClassLibraryLabb4.Customer", b =>
@@ -175,18 +184,19 @@ namespace Labb4_Projekt.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("CustomerPassword")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CustomerPhone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdentityUserId")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("CustomerID");
 
-                    b.HasIndex("IdentityUserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Customers");
 
@@ -197,6 +207,7 @@ namespace Labb4_Projekt.Migrations
                             CustomerAddress = "SolGatan 12B",
                             CustomerEmail = "Sam@testing.se",
                             CustomerName = "Sam Testing",
+                            CustomerPassword = "Password1!",
                             CustomerPhone = "0712365987"
                         },
                         new
@@ -205,6 +216,7 @@ namespace Labb4_Projekt.Migrations
                             CustomerAddress = "Varbergsgatan 31",
                             CustomerEmail = "Simon@ståhl.se",
                             CustomerName = "Simon Ståhl",
+                            CustomerPassword = "Password2!",
                             CustomerPhone = "0744556698"
                         },
                         new
@@ -213,6 +225,7 @@ namespace Labb4_Projekt.Migrations
                             CustomerAddress = "Storgatan 6",
                             CustomerEmail = "Henrik@johansson.se",
                             CustomerName = "Henrik Johansson",
+                            CustomerPassword = "Password3!",
                             CustomerPhone = "0723647895"
                         });
                 });
@@ -438,8 +451,7 @@ namespace Labb4_Projekt.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -448,7 +460,7 @@ namespace Labb4_Projekt.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("IdentityUserId");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
