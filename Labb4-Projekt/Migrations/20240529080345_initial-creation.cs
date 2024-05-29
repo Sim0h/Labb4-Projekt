@@ -70,36 +70,6 @@ namespace Labb4_Projekt.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Companies",
-                columns: table => new
-                {
-                    CompanyID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Companies", x => x.CompanyID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Customers",
-                columns: table => new
-                {
-                    CustomerID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CustomerEmail = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CustomerAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CustomerPhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CustomerPassword = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customers", x => x.CustomerID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -206,6 +176,48 @@ namespace Labb4_Projekt.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Companies",
+                columns: table => new
+                {
+                    CompanyID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Companies", x => x.CompanyID);
+                    table.ForeignKey(
+                        name: "FK_Companies_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Customers",
+                columns: table => new
+                {
+                    CustomerID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CustomerEmail = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CustomerAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerPhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CustomerPassword = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdentityUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.CustomerID);
+                    table.ForeignKey(
+                        name: "FK_Customers_AspNetUsers_IdentityUserId",
+                        column: x => x.IdentityUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Appointments",
                 columns: table => new
                 {
@@ -236,23 +248,18 @@ namespace Labb4_Projekt.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "ChangeHistorys",
-                columns: new[] { "ChangeID", "AppointmentID", "ChangeType", "NewAppointmentTime", "OldAppointmentTime", "WhenChanged" },
-                values: new object[] { 1, 0, "Ombokning", new DateTime(2024, 5, 15, 10, 30, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 5, 14, 10, 30, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 5, 14, 10, 30, 0, 0, DateTimeKind.Unspecified) });
-
-            migrationBuilder.InsertData(
                 table: "Companies",
-                columns: new[] { "CompanyID", "CompanyName" },
-                values: new object[] { 1, "SUT23 Kliniken" });
+                columns: new[] { "CompanyID", "CompanyName", "UserId" },
+                values: new object[] { 1, "SUT23 Kliniken", null });
 
             migrationBuilder.InsertData(
                 table: "Customers",
-                columns: new[] { "CustomerID", "CustomerAddress", "CustomerEmail", "CustomerName", "CustomerPassword", "CustomerPhone" },
+                columns: new[] { "CustomerID", "CustomerAddress", "CustomerEmail", "CustomerName", "CustomerPassword", "CustomerPhone", "IdentityUserId" },
                 values: new object[,]
                 {
-                    { 1, "SolGatan 12B", "Sam@testing.se", "Sam Testing", "Password1!", "0712365987" },
-                    { 2, "Varbergsgatan 31", "Simon@ståhl.se", "Simon Ståhl", "Password2!", "0744556698" },
-                    { 3, "Storgatan 6", "Henrik@johansson.se", "Henrik Johansson", "Password3!", "0723647895" }
+                    { 1, null, "jonas@gmail.se", "Jonas Eriksson", null, "0712345432", null },
+                    { 2, null, "simon@gmail.se", "Simon Ståhl", null, "0712345444", null },
+                    { 3, null, "Göran@gmail.se", "Göran Karlsson", null, "0712345666", null }
                 });
 
             migrationBuilder.InsertData(
@@ -260,9 +267,9 @@ namespace Labb4_Projekt.Migrations
                 columns: new[] { "AppointmentID", "AppointmentEnd", "AppointmentLength", "AppointmentName", "AppointmentStart", "CompanyID", "CustomerID" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 5, 8, 11, 30, 0, 0, DateTimeKind.Unspecified), 1.0, "Standard Läkarbesök", new DateTime(2024, 5, 8, 10, 30, 0, 0, DateTimeKind.Unspecified), 1, 1 },
-                    { 2, new DateTime(2024, 5, 7, 16, 30, 0, 0, DateTimeKind.Unspecified), 3.0, "Ögonkontroll", new DateTime(2024, 5, 7, 13, 30, 0, 0, DateTimeKind.Unspecified), 1, 2 },
-                    { 3, new DateTime(2024, 5, 10, 8, 30, 0, 0, DateTimeKind.Unspecified), 0.5, "Tandläkarbesök", new DateTime(2024, 5, 10, 8, 0, 0, 0, DateTimeKind.Unspecified), 1, 2 }
+                    { 1, new DateTime(2024, 5, 29, 15, 0, 0, 0, DateTimeKind.Unspecified), 2.0, "Läkarbesök", new DateTime(2024, 5, 29, 13, 0, 0, 0, DateTimeKind.Unspecified), 1, 2 },
+                    { 2, new DateTime(2024, 5, 31, 10, 0, 0, 0, DateTimeKind.Unspecified), 1.0, "Hälsokontroll", new DateTime(2024, 5, 29, 9, 0, 0, 0, DateTimeKind.Unspecified), 1, 1 },
+                    { 3, new DateTime(2024, 5, 30, 14, 0, 0, 0, DateTimeKind.Unspecified), 1.0, "Rutinkontroll", new DateTime(2024, 5, 30, 13, 0, 0, 0, DateTimeKind.Unspecified), 1, 2 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -313,6 +320,16 @@ namespace Labb4_Projekt.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Companies_UserId",
+                table: "Companies",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_IdentityUserId",
+                table: "Customers",
+                column: "IdentityUserId");
         }
 
         /// <inheritdoc />

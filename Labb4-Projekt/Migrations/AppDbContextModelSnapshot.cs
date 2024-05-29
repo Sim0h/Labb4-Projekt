@@ -63,30 +63,30 @@ namespace Labb4_Projekt.Migrations
                         new
                         {
                             AppointmentID = 1,
-                            AppointmentEnd = new DateTime(2024, 5, 8, 11, 30, 0, 0, DateTimeKind.Unspecified),
-                            AppointmentLength = 1.0,
-                            AppointmentName = "Standard Läkarbesök",
-                            AppointmentStart = new DateTime(2024, 5, 8, 10, 30, 0, 0, DateTimeKind.Unspecified),
-                            CompanyID = 1,
-                            CustomerID = 1
-                        },
-                        new
-                        {
-                            AppointmentID = 2,
-                            AppointmentEnd = new DateTime(2024, 5, 7, 16, 30, 0, 0, DateTimeKind.Unspecified),
-                            AppointmentLength = 3.0,
-                            AppointmentName = "Ögonkontroll",
-                            AppointmentStart = new DateTime(2024, 5, 7, 13, 30, 0, 0, DateTimeKind.Unspecified),
+                            AppointmentEnd = new DateTime(2024, 5, 29, 15, 0, 0, 0, DateTimeKind.Unspecified),
+                            AppointmentLength = 2.0,
+                            AppointmentName = "Läkarbesök",
+                            AppointmentStart = new DateTime(2024, 5, 29, 13, 0, 0, 0, DateTimeKind.Unspecified),
                             CompanyID = 1,
                             CustomerID = 2
                         },
                         new
                         {
+                            AppointmentID = 2,
+                            AppointmentEnd = new DateTime(2024, 5, 31, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            AppointmentLength = 1.0,
+                            AppointmentName = "Hälsokontroll",
+                            AppointmentStart = new DateTime(2024, 5, 29, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            CompanyID = 1,
+                            CustomerID = 1
+                        },
+                        new
+                        {
                             AppointmentID = 3,
-                            AppointmentEnd = new DateTime(2024, 5, 10, 8, 30, 0, 0, DateTimeKind.Unspecified),
-                            AppointmentLength = 0.5,
-                            AppointmentName = "Tandläkarbesök",
-                            AppointmentStart = new DateTime(2024, 5, 10, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            AppointmentEnd = new DateTime(2024, 5, 30, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            AppointmentLength = 1.0,
+                            AppointmentName = "Rutinkontroll",
+                            AppointmentStart = new DateTime(2024, 5, 30, 13, 0, 0, 0, DateTimeKind.Unspecified),
                             CompanyID = 1,
                             CustomerID = 2
                         });
@@ -118,17 +118,6 @@ namespace Labb4_Projekt.Migrations
                     b.HasKey("ChangeID");
 
                     b.ToTable("ChangeHistorys");
-
-                    b.HasData(
-                        new
-                        {
-                            ChangeID = 1,
-                            AppointmentID = 0,
-                            ChangeType = "Ombokning",
-                            NewAppointmentTime = new DateTime(2024, 5, 15, 10, 30, 0, 0, DateTimeKind.Unspecified),
-                            OldAppointmentTime = new DateTime(2024, 5, 14, 10, 30, 0, 0, DateTimeKind.Unspecified),
-                            WhenChanged = new DateTime(2024, 5, 14, 10, 30, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("ClassLibraryLabb4.Company", b =>
@@ -140,7 +129,6 @@ namespace Labb4_Projekt.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompanyID"));
 
                     b.Property<string>("CompanyName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
@@ -151,6 +139,13 @@ namespace Labb4_Projekt.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Companies");
+
+                    b.HasData(
+                        new
+                        {
+                            CompanyID = 1,
+                            CompanyName = "SUT23 Kliniken"
+                        });
                 });
 
             modelBuilder.Entity("ClassLibraryLabb4.Customer", b =>
@@ -194,26 +189,23 @@ namespace Labb4_Projekt.Migrations
                         new
                         {
                             CustomerID = 1,
-                            CustomerAddress = "SolGatan 12B",
-                            CustomerEmail = "Sam@testing.se",
-                            CustomerName = "Sam Testing",
-                            CustomerPhone = "0712365987"
+                            CustomerEmail = "jonas@gmail.se",
+                            CustomerName = "Jonas Eriksson",
+                            CustomerPhone = "0712345432"
                         },
                         new
                         {
                             CustomerID = 2,
-                            CustomerAddress = "Varbergsgatan 31",
-                            CustomerEmail = "Simon@ståhl.se",
+                            CustomerEmail = "simon@gmail.se",
                             CustomerName = "Simon Ståhl",
-                            CustomerPhone = "0744556698"
+                            CustomerPhone = "0712345444"
                         },
                         new
                         {
                             CustomerID = 3,
-                            CustomerAddress = "Storgatan 6",
-                            CustomerEmail = "Henrik@johansson.se",
-                            CustomerName = "Henrik Johansson",
-                            CustomerPhone = "0723647895"
+                            CustomerEmail = "Göran@gmail.se",
+                            CustomerName = "Göran Karlsson",
+                            CustomerPhone = "0712345666"
                         });
                 });
 
@@ -438,8 +430,7 @@ namespace Labb4_Projekt.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });

@@ -19,7 +19,7 @@ namespace ClassLibraryLabb4
 
         public ICollection<Appointment> Appointments { get; set; }
 
-        [ForeignKey("IdentityUser")]
+        
         public string UserId { get; set; }
         public IdentityUser User { get; set; }
     }
